@@ -121,6 +121,14 @@ jar {
   from "LICENSE"
 }
 
+
+configurations {
+  universalElements {
+    canBeConsumed = true
+    canBeResolved = false
+  }
+}
+
 final var minecraftConstraint = "[26.1,26.2)"
 final var supportedMinecraftVersions = manifests.minecraftReleasesMatching(minecraftConstraint)
 
@@ -168,6 +176,10 @@ manifests {
 
     accessTransformer(neoforgeAWTask)
   }
+}
+
+artifacts {
+  universalElements(tasks.universalJar)
 }
 
 publishing {
