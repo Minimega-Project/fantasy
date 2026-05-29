@@ -2,8 +2,6 @@ package xyz.nucleoid.fantasy;
 
 import com.google.common.base.Preconditions;
 import it.unimi.dsi.fastutil.objects.ReferenceOpenHashSet;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -60,16 +58,14 @@ public final class Fantasy {
     private final Set<ServerLevel> deletionQueue = new ReferenceOpenHashSet<>();
     private final Set<ServerLevel> unloadingQueue = new ReferenceOpenHashSet<>();
 
-    static {
-        ServerTickEvents.START_SERVER_TICK.register(server -> {
-            Fantasy fantasy = get(server);
-            fantasy.tick();
-        });
+    public static void onStartServerTick(MinecraftServer server)  {
+        Fantasy fantasy = get(server);
+        fantasy.tick();
+    }
 
-        ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
-            Fantasy fantasy = get(server);
-            fantasy.onServerStopping();
-        });
+    public static void onServerStopping(MinecraftServer server)  {
+        Fantasy fantasy = get(server);
+        fantasy.onServerStopping();
     }
 
     private Fantasy(MinecraftServer server) {

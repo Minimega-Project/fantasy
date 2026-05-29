@@ -54,7 +54,7 @@ public class RuntimeLevel extends ServerLevel {
                 ImmutableList.of(),
                 config.shouldTickTime()
         );
-        this.flat = config.isFlat().orElse(super.isFlat());
+        this.flat = config.isFlat().toBoolean(super.isFlat());
         this.rules = gameRules;
     }
 

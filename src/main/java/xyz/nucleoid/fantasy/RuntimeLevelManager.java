@@ -1,6 +1,5 @@
 package xyz.nucleoid.fantasy;
 
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLevelEvents;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.RegistrationInfo;
 import net.minecraft.core.Registry;
@@ -50,7 +49,7 @@ final class RuntimeLevelManager {
         RuntimeLevel level = config.getLevelConstructor().createLevel(this.server, levelKey, config, style);
 
         this.serverAccess.getLevels().put(level.dimension(), level);
-        ServerLevelEvents.LOAD.invoker().onLevelLoad(this.server, level);
+        onLevelLoad(this.server, level); // ServerLevelEvents.LOAD.invoker()
 
         // tick the level to ensure it is ready for use right away
         level.tick(() -> true);
@@ -58,11 +57,19 @@ final class RuntimeLevelManager {
         return level;
     }
 
+    private void onLevelLoad(MinecraftServer server, ServerLevel level) {
+        throw new AssertionError();
+    }
+
+    private void onLevelUnload(MinecraftServer server, ServerLevel level) {
+        throw new AssertionError();
+    }
+
     void delete(ServerLevel level) {
         ResourceKey<Level> dimensionKey = level.dimension();
 
         if (this.serverAccess.getLevels().remove(dimensionKey, level)) {
-            ServerLevelEvents.UNLOAD.invoker().onLevelUnload(this.server, level);
+            onLevelUnload(this.server, level); // ServerLevelEvents.UNLOAD.invoker()
 
             MappedRegistry<LevelStem> dimensionsRegistry = getDimensionsRegistry(this.server);
             this.unregister((RuntimeLevel) level, dimensionKey, dimensionsRegistry, true);
@@ -104,7 +111,7 @@ final class RuntimeLevelManager {
                 public void stop() {}
             }, true, false);
 
-            ServerLevelEvents.UNLOAD.invoker().onLevelUnload(RuntimeLevelManager.this.server, level);
+            onLevelUnload(RuntimeLevelManager.this.server, level); // ServerLevelEvents.UNLOAD.invoker()
 
             MappedRegistry<LevelStem> dimensionsRegistry = getDimensionsRegistry(RuntimeLevelManager.this.server);
             this.unregister((RuntimeLevel) level, dimensionKey, dimensionsRegistry, false);

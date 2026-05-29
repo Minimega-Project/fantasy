@@ -1,11 +1,11 @@
 package xyz.nucleoid.fantasy;
 
 import com.google.common.base.Preconditions;
-import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.TriState;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.clock.ClockState;
 import net.minecraft.world.clock.PackedClockStates;
@@ -300,7 +300,7 @@ public final class RuntimeLevelConfig {
      * @return The same instance of {@link RuntimeLevelConfig}
      */
     public RuntimeLevelConfig setFlat(boolean state) {
-        return this.setFlat(TriState.of(state));
+        return this.setFlat(TriState.from(state));
     }
 
     public long getSeed() {

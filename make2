@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+if [ ! -d "fabric-loom" ]; then
+    git clone "https://github.com/isXander/fabric-loom.git"
+fi
+
+if [ ! -f "initted" ]; then
+    cd fabric-loom
+    git switch --detach 2b491e79afa454cfee9673fefef99c93c4b95f8e
+    chmod +x gradlew
+    ./gradlew publishToMavenLocal
+    cd ..
+    touch "initted"
+fi
+
+./gradlew build
