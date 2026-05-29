@@ -149,7 +149,7 @@ manifests {
     description = "Fantasy is a library that allows for dimensions to be created and destroyed at runtime on the server."
     authors = ["Nucleoid Contributors", "Jab125"]
     sourcesUrl = "https://github.com/Minimega-Project/fantasy"
-    licenses = ["MIT"]
+    licenses = ["LGPLv3"]
     iconPath = "icon.png"
 
     // maven-like version ranges are automatically converted to the target platform's
