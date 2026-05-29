@@ -35,6 +35,10 @@ tasks.named { it in ["neoFormTransformSource", "applyAccessTransformer"] }.confi
   dependsOn(neoforgeAWTask)
 }
 
+tasks.matching { it.name == "neoFormApplyAccessTransformer" }.configureEach {
+  dependsOn("convertAccessxNeoforge")
+}
+
 java {
   toolchain {
     languageVersion = JavaLanguageVersion.of(25)
