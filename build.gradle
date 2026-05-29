@@ -31,12 +31,8 @@ final var neoforgeAWTask = accessx.convert("neoforge", sourceSets.neoforge.name)
 // access transformers must be sourced BEFORE `neoforgeImplementation(libs.neoforge)`
 accessTransformers.files.from(neoforgeAWTask.flatMap { it.outputFile })
 // NeoGradle bug: https://github.com/neoforged/NeoGradle/issues/318
-tasks.named { it in ["neoFormTransformSource", "applyAccessTransformer"] }.configureEach {
+tasks.named { it in ["neoFormTransformSource", "applyAccessTransformer", "neoFormApplyAccessTransformer"] }.configureEach {
   dependsOn(neoforgeAWTask)
-}
-
-tasks.matching { it.name == "neoFormApplyAccessTransformer" }.configureEach {
-  dependsOn("convertAccessxNeoforge")
 }
 
 java {
