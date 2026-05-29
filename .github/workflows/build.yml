@@ -26,11 +26,9 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Grant execute permission for make2
-        run: chmod +x make2
 
       - name: Build with Gradle
-        run: ./make2
+        run: ./gradlew build
       - uses: actions/upload-artifact@v4
         with:
           name: artifacts
