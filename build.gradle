@@ -122,10 +122,14 @@ jar {
 }
 
 
+def libraryVariantAttr = Attribute.of('dev.jab125.variant', String)
 configurations {
   universalElements {
     canBeConsumed = true
     canBeResolved = false
+    attributes {
+      attribute(libraryVariantAttr, 'universal')
+    }
   }
 }
 
